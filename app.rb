@@ -10,9 +10,15 @@ require_relative 'lib/workers/feedback_export_worker'
 
 server = WEBrick::HTTPServer.new(Port: 3000)
 
-# Map routes to controllers
+# Users Routes
 server.mount '/users' , UsersController
+
+
+# Posts Routes
 server.mount '/posts' , PostsController
+server.mount '/posts/top_rated', PostsController, :top_rated
+server.mount '/posts/author_ips', PostsController, :author_ips
+
 server.mount '/ratings' , RatingsController
 server.mount '/feedbacks' , FeedbacksController
 

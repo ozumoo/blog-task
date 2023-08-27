@@ -1,3 +1,6 @@
+require 'active_record'
+
+
 class Rating < ActiveRecord::Base
     belongs_to :post
   

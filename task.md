@@ -32,7 +32,7 @@ Feedback has many posts and user, params: owner_id, comment (text)
 - [x] Should be at least 200k posts in the database, it is better to make authors around 100 pieces, use 50 different IPs. Actions should work fast enough on standard hardware both for the specified
 amount of data (faster than 100 ms), and for much more, that is, you need a good margin in terms of query optimization. To do this, you can use data denormalization and any other database tools.
 
-7. [ ] Cover with specs main parts of your project
+7. [x] Cover with specs main parts of your project
 8. [x] Create a worker that will execute every day at 9 am and will generate an xml file with all feedbacks.
 Should have an owner login, comment, rating (empty if user feedback), feedback type (post user).
 

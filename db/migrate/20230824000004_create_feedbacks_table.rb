@@ -1,12 +1,9 @@
 class CreateFeedbacksTable < ActiveRecord::Migration[6.0]
     def change
       create_table :feedbacks do |t|
-        t.references :owner, references: :users, foreign_key: { to_table: :users }
-        t.references :user, foreign_key: true
-        t.references :post, foreign_key: true
+        t.references :user, foreign_key: { on_delete: :cascade }
+        t.references :post, foreign_key: { on_delete: :cascade }
         t.text :comment
-        t.integer :rating
-        t.string :feedback_type
         t.timestamps
       end
     end

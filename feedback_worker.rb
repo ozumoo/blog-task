@@ -1,6 +1,4 @@
 require 'builder'
-require 'sidekiq'
-require 'sidekiq/api'
 
 class FeedbackExportWorker
   include Sidekiq::Worker

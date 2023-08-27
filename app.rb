@@ -1,30 +1,36 @@
-require 'webrick'
-
-require_relative 'lib/controllers/users_controller'
-require_relative 'lib/controllers/posts_controller'
-require_relative 'lib/controllers/ratings_controller'
-require_relative 'lib/controllers/feedbacks_controller'
+require 'rack'
+require 'rack/session/cookie'
+require 'sidekiq/web'
+require_relative 'lib/controllers/users_app'
+require_relative 'lib/controllers/posts_app'
+require_relative 'lib/controllers/ratings_app'
+require_relative 'lib/controllers/feedbacks_app'
 require_relative 'config/database'
 require_relative 'lib/workers/feedback_export_worker'
 
+class App
+  def call(env)
+    request = Rack::Request.new(env)
+    response = Rack::Response.new
 
-server = WEBrick::HTTPServer.new(Port: 3000)
+    # Define your routing logic here
+    case request.path
+    when '/users'
+      UsersApp.new.call(env)  
+    when '/posts', '/posts/top_rated', '/posts/author_ips'
+      PostsApp.new.call(env)  
+    when '/ratings'
+      RatingsApp.new.call(env)
+    when '/feedbacks'
+      FeedbacksApp.new.call(env)
+    when '/sidekiq'
+      env['PATH_INFO'] = '/sidekiq'
+      Sidekiq::Web.new.call(env)
+    else
+      response.status = 404
+      response.write('Not Found')
+    end
 
-# Users Routes
-server.mount '/users' , UsersController
-
-
-# Posts Routes
-server.mount '/posts' , PostsController
-server.mount '/posts/top_rated', PostsController, :top_rated
-server.mount '/posts/author_ips', PostsController, :author_ips
-
-server.mount '/ratings' , RatingsController
-server.mount '/feedbacks' , FeedbacksController
-
-
-trap('INT') { server.shutdown }
-
-
-# keep main thread alive
-loop {}
+    response.finish
+  end
+end

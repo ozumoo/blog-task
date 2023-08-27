@@ -3,6 +3,15 @@ require 'active_record'
 require_relative 'config/database'
 
 namespace :db do
+
+  # Rakefile
+  desc 'Starting rack server'
+  task :start_server do
+    puts "Starting Rack server..."
+    system("rackup -p 3000 config.ru")
+  end
+
+
   desc 'Create the database'
   task :create do
     ActiveRecord::Base.establish_connection(
@@ -20,10 +29,12 @@ namespace :db do
       adapter: 'mysql2',
       host: ENV['DATABASE_HOST'],
       username: ENV['DATABASE_USERNAME'],
-      password: ENV['DATABASE_PASSWORD']
-      database: 'your_database_name'
+      password: ENV['DATABASE_PASSWORD'],
+      database: ENV['DATABASE_NAME']
     )
-    ActiveRecord::Migrator.migrate('db/migrate')
+
+
+    ActiveRecord::MigrationContext.new("db/migrate/", ActiveRecord::SchemaMigration).migrate()
   end
 
   desc 'Seed the database'

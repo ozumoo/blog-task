@@ -1,0 +1,376 @@
+{
+	"info": {
+		"_postman_id": "27875de6-901c-4d33-8f37-c284d7af67e9",
+		"name": "blog-tasks",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "25285824",
+		"_collection_link": "https://galactic-eclipse-866556.postman.co/workspace/-AskYourDoctor~3df1af21-1b37-4f05-86ab-c609acb8deea/collection/25285824-27875de6-901c-4d33-8f37-c284d7af67e9?action=share&source=collection_link&creator=25285824"
+	},
+	"item": [
+		{
+			"name": "create-users",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"mahamed@gmail.com\"\n}"
+				},
+				"url": {
+					"raw": "{{LOCAL_URL}}/users",
+					"host": [
+						"{{LOCAL_URL}}"
+					],
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "success-response",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"mohamed@gmail.com\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/users",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users"
+							]
+						}
+					},
+					"status": "OK ",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Server",
+							"value": "WEBrick/1.4.4 (Ruby/2.6.10/2022-04-12)"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 27 Aug 2023 02:10:28 GMT"
+						},
+						{
+							"key": "Content-Length",
+							"value": "116"
+						},
+						{
+							"key": "Connection",
+							"value": "Keep-Alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"id\": 1,\n    \"email\": \"mohamed@gmail.com\",\n    \"created_at\": \"2023-08-27T02:10:28.549Z\",\n    \"updated_at\": \"2023-08-27T02:10:28.549Z\"\n}"
+				}
+			]
+		},
+		{
+			"name": "create-post",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"author_email\": \"mahamed@gmail.com\",\n    \"title\": \"Post Title\",\n    \"content\": \"Post Content\",\n    \"author_ip\": \"192.168.1.1\"\n}"
+				},
+				"url": {
+					"raw": "{{LOCAL_URL}}/posts",
+					"host": [
+						"{{LOCAL_URL}}"
+					],
+					"path": [
+						"posts"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "success-response",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"author_email\": \"mohamed@gmail.com\",\n    \"title\": \"Post Title\",\n    \"content\": \"Post Content\",\n    \"user_id\": 1,\n    \"author_ip\": \"192.168.1.1\"\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/posts",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"posts"
+							]
+						}
+					},
+					"status": "OK ",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Server",
+							"value": "WEBrick/1.4.4 (Ruby/2.6.10/2022-04-12)"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 27 Aug 2023 02:39:57 GMT"
+						},
+						{
+							"key": "Content-Length",
+							"value": "173"
+						},
+						{
+							"key": "Connection",
+							"value": "Keep-Alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"id\": 14,\n    \"user_id\": 1,\n    \"title\": \"Post Title\",\n    \"content\": \"Post Content\",\n    \"author_ip\": \"192.168.1.1\",\n    \"created_at\": \"2023-08-27T02:39:57.216Z\",\n    \"updated_at\": \"2023-08-27T02:39:57.216Z\"\n}"
+				}
+			]
+		},
+		{
+			"name": "create-rating",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"post_id\": 1,\n    \"value\": 5\n}"
+				},
+				"url": {
+					"raw": "{{LOCAL_URL}}/ratings",
+					"host": [
+						"{{LOCAL_URL}}"
+					],
+					"path": [
+						"ratings"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "success_response",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"post_id\": 1,\n    \"value\": 4\n}"
+						},
+						"url": {
+							"raw": "http://localhost:3000/ratings",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"ratings"
+							]
+						}
+					},
+					"status": "OK ",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Server",
+							"value": "WEBrick/1.4.4 (Ruby/2.6.10/2022-04-12)"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 27 Aug 2023 03:14:07 GMT"
+						},
+						{
+							"key": "Content-Length",
+							"value": "14"
+						},
+						{
+							"key": "Connection",
+							"value": "Keep-Alive"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"data\": \"4.0\"\n}"
+				}
+			]
+		},
+		{
+			"name": "top-rated",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{LOCAL_URL}}/posts/top_rated?n=5",
+					"host": [
+						"{{LOCAL_URL}}"
+					],
+					"path": [
+						"posts",
+						"top_rated"
+					],
+					"query": [
+						{
+							"key": "n",
+							"value": "5"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get-authors-list",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{LOCAL_URL}}/posts/author_ips",
+					"host": [
+						"{{LOCAL_URL}}"
+					],
+					"path": [
+						"posts",
+						"author_ips"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "send-feedback",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"user_id\": 1,\n    \"post_id\": 1,\n    \"comment\": \"Feedback Comment 6\"\n}"
+				},
+				"url": {
+					"raw": "{{LOCAL_URL}}/feedbacks",
+					"host": [
+						"{{LOCAL_URL}}"
+					],
+					"path": [
+						"feedbacks"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get owner's feedback",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{LOCAL_URL}}/feedbacks?user_id=1",
+					"host": [
+						"{{LOCAL_URL}}"
+					],
+					"path": [
+						"feedbacks"
+					],
+					"query": [
+						{
+							"key": "user_id",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

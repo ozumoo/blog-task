@@ -2,6 +2,7 @@ require 'rack'
 require 'rack/session/cookie'
 require 'sidekiq/web'
 require 'webrick'
+require 'rack/contrib/jsonp' 
 require 'active_record'
 require_relative 'lib/controllers/users_app'
 require_relative 'lib/controllers/posts_app'
@@ -41,6 +42,8 @@ end
 
 # Use Rack::Session::Cookie for Sidekiq
 use Rack::Session::Cookie, secret: '7e6bf1f781fdf3ba1fc21cc8c59e2dcbc24d490bcb1b27b4e35e1fccf4bcbe9aa8c48a2b90ef7634c6f01e67fc7914cd220ebd19030706e57b44ae36b8a17db8', path: '/sidekiq'
+use Rack::JSONP # Add this line
+
 
 app = Rack::Builder.new do
     # ...

@@ -1,31 +1,33 @@
-require 'webrick'
+require 'json'
 require_relative '../models/feedback' # Adjust the path accordingly
 
-class FeedbacksController < WEBrick::HTTPServlet::AbstractServlet
-  def do_POST(request, response)
-    case request.path
-    when '/feedbacks'
-      handle_create(request, response)
-    else
-      response.status = 404
-      response.body = 'Not Found'
-    end
-  end
+class FeedbacksApp
+  def call(env)
+    request = Rack::Request.new(env)
+    response = Rack::Response.new
 
-  def do_GET(request, response)
     case request.path
     when '/feedbacks'
-      handle_index(request, response)
+      if request.request_method == 'POST'
+        handle_create(request, response)
+      elsif request.request_method == 'GET'
+        handle_index(request, response)
+      else
+        response.status = 404
+        response.write('Not Found')
+      end
     else
       response.status = 404
-      response.body = 'Not Found'
+      response.write('Not Found')
     end
+
+    response.finish
   end
 
   private
 
   def handle_create(request, response)
-    params = JSON.parse(request.body)
+    params = JSON.parse(request.body.read)
     feedback = Feedback.new(
       user_id: params['user_id'],
       post_id: params['post_id'],
@@ -35,20 +37,20 @@ class FeedbacksController < WEBrick::HTTPServlet::AbstractServlet
     if feedback.save
       response.status = 200
       response['Content-Type'] = 'application/json'
-      response.body = { data: feedback }.to_json
+      response.write({ success: true }.to_json)
     else
       response.status = 422
       response['Content-Type'] = 'application/json'
-      response.body = { errors: feedback.errors.full_messages }.to_json
+      response.write({ success: false, errors: feedback.errors.full_messages }.to_json)
     end
   end
 
   def handle_index(request, response)
-    user_id = request.query['user_id']
+    user_id = request.params['user_id']
     feedbacks = Feedback.where(user_id: user_id).order(created_at: :desc)
 
     response.status = 200
     response['Content-Type'] = 'application/json'
-    response.body = { data: feedbacks }.to_json
+    response.write(feedbacks.to_json)  # Write the fetched data directly
   end
 end

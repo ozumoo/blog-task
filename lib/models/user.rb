@@ -6,5 +6,9 @@ class User < ActiveRecord::Base
   
     has_many :posts
     has_many :feedbacks, foreign_key: :owner_id
+
+    def to_json(*args)
+      { email: email }.to_json(*args)
+    end
   end
   

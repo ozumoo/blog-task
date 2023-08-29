@@ -1,15 +1,19 @@
 # app/workers/seeding_worker.rb
 
 require 'sidekiq/api'
+require "sidekiq/client"
 require 'sidekiq'
+require_relative '../../config/environment'
 
-
-class SeedingWorker
+module Sidekiq
+  class HardWorker
     include Sidekiq::Worker
-  
+    sidekiq_options queue: 'critical', retry: 2
+
     BATCH_SIZE = 1000
   
-    def perform(class_name, count)
+    def perform(class_name , count)
+
       case class_name
       when 'User'
         create_users(count)
@@ -85,10 +89,12 @@ class SeedingWorker
             "192.168.0.29",
             "192.168.0.30"
           ]
-  
+      # 100 
       User.find_each do |author|
+        # 2000 / 1000 = 2 
         (count / BATCH_SIZE).times do
           Post.transaction do
+            # 1000 
             BATCH_SIZE.times do
               Post.create!(
                 title: Faker::Lorem.sentence,
@@ -117,4 +123,4 @@ class SeedingWorker
       end
     end
   end
-  
+end

@@ -23,6 +23,8 @@ GEM
       concurrent-ruby (~> 1.0)
     minitest (5.19.0)
     mysql2 (0.5.5)
+    nokogiri (1.13.10-aarch64-linux)
+      racc (~> 1.4)
     nokogiri (1.13.10-arm64-darwin)
       racc (~> 1.4)
     racc (1.7.1)
@@ -46,11 +48,13 @@ GEM
       connection_pool (>= 2.2.5, < 3)
       rack (~> 2.0)
       redis (>= 4.5.0, < 5)
+    sqlite3 (1.4.0)
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
     zeitwerk (2.6.11)
 
 PLATFORMS
+  aarch64-linux
   arm64-darwin-22
 
 DEPENDENCIES
@@ -64,6 +68,7 @@ DEPENDENCIES
   rake
   rspec
   sidekiq
+  sqlite3 (= 1.4)
 
 BUNDLED WITH
    2.4.19

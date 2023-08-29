@@ -1,5 +1,7 @@
 require 'rake'
+require 'rspec'
 require 'active_record'
+require 'rspec/core/rake_task'
 require_relative 'config/database'
 
 namespace :db do
@@ -10,6 +12,16 @@ namespace :db do
     puts "Starting Rack server..."
     system("rackup -p 3000 config.ru")
   end
+
+  desc "Run PCMag tests"
+  task :run_test do
+    RSpec::Core::RakeTask.new('test') do |t|
+      puts "hi"
+      t.rspec_opts = ["-Ilib", "--format progress", "--color"]
+      t.pattern = ['spec/controllers/*.rb']
+    end
+  end
+  
 
 
   desc 'Create the database'

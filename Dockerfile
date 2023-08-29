@@ -22,6 +22,3 @@ RUN bundle install
 
 # Copy the application code to the container
 COPY . $APP_HOME/
-
-# Set the entry point to start the Ruby application
-CMD ["ruby", "app.rb"]

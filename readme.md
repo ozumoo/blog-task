@@ -19,14 +19,19 @@ This documentation outlines the JSON API service built to handle users, posts, r
    bundle install
    ```
 
-4. Set up the database and run migrations:
+4. Create Database:
+   ```
+   bundle exec rake db:create
+   ```
+
+5. Set up the database and run migrations:
    ```
    bundle exec rake db:migrate
    ```
 
-5. Start the server:
+6. Start the server:
    ```
-   bundle exec ruby app.rb
+   bundle exec rackup
    ```
 
 ## API Endpoints
@@ -64,7 +69,7 @@ curl http://localhost:4567/posts/author_ips
 ### Add Feedback
 
 ```shell
-curl -X POST http://localhost:4567/feedbacks -d "owner_id=1" -d "comment=Great post!"
+curl -X POST http://localhost:4567/feedbacks -d "user_id=1" -d "post_id=1" -d "comment=Great post!"
 ```
 
 ### Get Feedbacks for the Same Owner

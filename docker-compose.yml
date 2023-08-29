@@ -7,7 +7,7 @@ services:
       - "3000:3000"
     volumes:
       - .:/app
-    command: ruby app.rb
+    command: bundle exec rackup -o 0.0.0.0 -p 3000
 
   db:
     image: mysql:latest
@@ -15,7 +15,9 @@ services:
       - "3306:3306"
     environment:
       MYSQL_ROOT_PASSWORD: password
-      MYSQL_DATABASE: app_development
+      MYSQL_DATABASE: blog
+    command: --socket=/run/mysqld/mysqld.sock
+
 
   worker:
     build:
@@ -24,4 +26,4 @@ services:
       - db
     volumes:
       - .:/app
-    command: ruby feedback_worker.rb
+    command: bundle exec sidekiq -r ./app.rb

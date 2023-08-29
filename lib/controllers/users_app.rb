@@ -1,10 +1,11 @@
+require 'rack'
 require 'json'
-require_relative '../models/user'
 
 class UsersApp
   def call(env)
     request = Rack::Request.new(env)
     response = Rack::Response.new
+
     case request.path
     when '/users'
       handle_create(request, response)
@@ -12,6 +13,7 @@ class UsersApp
       response.status = 404
       response.write('Not Found')
     end
+
     response.finish
   end
 
@@ -25,10 +27,14 @@ class UsersApp
       response.status = 200
       response['Content-Type'] = 'application/json'
       response.write(user.to_json)
+      response.finish
+
     else
       response.status = 422
       response['Content-Type'] = 'application/json'
-      response.write({ errors: user.errors.full_messages }.to_json)
+      errors_json = { errors: user.errors.full_messages }.to_json
+      response.write(errors_json)
+      response.finish
     end
   end
 end

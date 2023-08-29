@@ -1,22 +1,25 @@
 require 'faker'
 require 'active_record'
+require 'logger'
 require 'sidekiq/api'
 require_relative '../lib/workers/seeding_worker'
 
 
 # db/seeds.rb
 
-# Create 50 users using Sidekiq
-SeedingWorker.perform_async('User', 50)
+seeding_worker = Sidekiq::HardWorker.new
 
-# Create 100 authors (users) using Sidekiq
-SeedingWorker.perform_async('User', 100)
+# # Create 100 authors (users)
+seeding_worker.perform('User', 100)
+puts "user seeder done"
 
-# Create posts using Sidekiq
-SeedingWorker.perform_async('Post', 200_000)
+# # Create posts
+seeding_worker.perform('Post', 2000)
+puts "Post seeder done"
 
-# Create feedbacks for posts using Sidekiq
-SeedingWorker.perform_async('Feedback', 10_000)
+# Create 50 users
+seeding_worker.perform('Feedback', 50)
+puts "Feedback seeder done"
 
-# Create feedbacks for users using Sidekiq
-SeedingWorker.perform_async('Feedback', 50)
+# # Create feedbacks for posts
+seeding_worker.perform('Feedback', 20)

@@ -8,6 +8,10 @@ require_relative 'lib/controllers/feedbacks_app'
 require_relative 'config/database'
 require_relative 'lib/workers/feedback_export_worker'
 
+
+# Initialize Sidekiq
+
+# Define your application's routes and controllers here
 class App
   def call(env)
     request = Rack::Request.new(env)

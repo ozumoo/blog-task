@@ -24,6 +24,16 @@ class FeedbacksApp
     response.finish
   end
 
+  def create(user_id, comment)
+    feedback = Feedback.new(user_id: user_id, comment: comment)
+    feedback.save
+  end
+
+  def index(user_id)
+    feedbacks = Feedback.where(user_id: user_id)
+    feedbacks.map { |feedback| { id: feedback.id, comment: feedback.comment } }
+  end
+
   private
 
   def handle_create(request, response)

@@ -6,12 +6,12 @@ This documentation outlines the JSON API service built to handle users, posts, r
 
 1. Clone the repository:
    ```
-   git clone https://github.com/yourusername/yourproject.git
+   git clone https://github.com/ozumoo/blog-task.git
    ```
 
 2. Navigate to the project directory:
    ```
-   cd yourproject
+   cd blog-task
    ```
 
 3. Install the required gems using Bundler:
